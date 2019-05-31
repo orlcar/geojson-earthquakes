@@ -1,12 +1,12 @@
-// Store the API endpoint as queryUrls
+// Store the API endpoint as queryURLs
 // The variable API_KEY in the config file stores the API key
-var queryUrl = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geojson";
-var queryUrl2 = "PB2002_plates.json";
+var queryEarthquake_URL = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geojson";
+var queryPlate_URL = "PB2002_plates.json";
 
 // Perform a GET request to the query URLs
-d3.json(queryUrl2, function(dataPlates) {
+d3.json(queryPlate_URL, function(dataPlates) {
 
-	d3.json(queryUrl, function(data) {
+	d3.json(queryEarthquake_URL, function(data) {
 		// Using the features array sent back in the API data, create GeoJSON layers and add them to the map
 		createFeatures(data.features, dataPlates.features);
 	});
@@ -72,15 +72,6 @@ function createFeatures(earthquakeData, plateData) {
 		};
 		
         return L.circleMarker(latlng, geojsonMarkerOptions);
-	}
-
-
-	function plateCoordinates(feature, latlng){
-
-		var plateLines = [{
-			"type": "LineString",
-			"coordinates": feature.coordinates
-		}];
 	}
 
 	var plateStyle = {
